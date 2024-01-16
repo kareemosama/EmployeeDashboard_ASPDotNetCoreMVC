@@ -1,4 +1,4 @@
-# E-Tickets ASP.NET Core MVC
+# EmployeeDashboard ASP.NET Core MVC
 
 ![Main Page](https://github.com/kareemosama/EmployeeDashboard_ASPDotNetCoreMVC/blob/main/wwwroot/img/MainPage.png)
 
