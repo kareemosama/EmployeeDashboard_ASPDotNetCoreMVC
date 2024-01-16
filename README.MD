@@ -13,8 +13,8 @@ Follow these steps to set up and run E-Tickets ASP.NET Core MVC locally:
 1. **Clone the Repository:**
 
    ```bash
-   git clone https://github.com/kareemosama/E-Tickets_ASPDotNetCoreMVC.git
-   cd E-Tickets_ASPDotNetCoreMVC
+   https://github.com/kareemosama/EmployeeDashboard_ASPDotNetCoreMVC
+   cd EmployeeDashboard_ASPDotNetCoreMVC
    ```
 
 2. **Restore Packages::**
