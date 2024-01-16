@@ -1,6 +1,6 @@
 # E-Tickets ASP.NET Core MVC
 
-![Main Page](https://github.com/kareemosama/EmployeeDashboard_ASPDotNetCoreMVC/tree/main/wwwroot/img/MainPage.png)
+![Main Page](https://github.com/kareemosama/EmployeeDashboard_ASPDotNetCoreMVC/blob/main/wwwroot/img/MainPage.png)
 
 ## About
 
