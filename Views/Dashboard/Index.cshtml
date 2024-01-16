@@ -1,0 +1,153 @@
+﻿@model List<Employee>
+<div class="overflow-hidden text-center">
+    <h2 class="">Employee Dashboard</h2>
+    
+    @if (Model != null && Model.Any())
+    {
+        <!-- Chart Section -->
+        <div class="row gy-5 ">
+            <div class="col-6">
+                <div class="p-3">
+                    <div id="main" style="width: 500px;height:400px;"></div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="p-3">
+                    <div id="main1" style="width: 500px;height:400px;"></div>
+                </div>
+            </div>
+
+           @* <div  style="width: 50%; margin: auto; margin-top: 100px;">
+                <div id="main" style="width: 800px;height:600px;"></div>
+            </div>*@
+            <div class="col-12">
+                <div class="p-3">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th>Name</th>
+                                <th>Working Hours</th>
+                                <th>Salary</th>
+                            </tr>
+                        </thead>
+                        @foreach (var employee in Model)
+                        {
+                        <tbody>
+                            <tr>
+                                    <th scope="row">@employee.Id</th>
+                                    <td>@employee.Name</td>
+                                    <td>@employee.WorkingHours</td>
+                                    <td>@employee.Salary</td>
+                            </tr>
+                           
+                        </tbody>
+                        }
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+        @section scripts {
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script type="text/javascript">
+
+        
+            //// Extract employee names, working hours, and salaries
+            //var employeeNames = ['k1', 'k1', 'k1', 'k1', 'k1', 'k1', 'k1', 'k1', 'k1', 'k1'];
+            //var workingHours = [@Model.Select(e => e.Salary)];
+            //    var salaries = [10, 20, 10, 20, 10, 20, 10, 20, 10, 20];
+
+
+            // Extract employee names, working hours, and salaries
+            var employeeData = [
+            @foreach (var employee in Model)
+                {
+                    // Use JSON.Encode to properly format strings and handle special characters
+                    @:{ name: @Json.Serialize(employee.Name), workingHours: @employee.WorkingHours, salary: @employee.Salary },
+                }
+                        ];
+
+                // Separate arrays for chart data
+                var employeeNames = employeeData.map(e => e.name);
+                var workingHours = employeeData.map(e => e.workingHours);
+                var salaries = employeeData.map(e => e.salary);
+
+
+                // Initialize the echarts instance based on the prepared dom
+                var myChart1 = echarts.init(document.getElementById('main1'));
+
+                // Specify the configuration items and data for the chart
+                var option1 = {
+                    title: {
+                        text: 'Salaries',
+                        left: 'center'
+                    },
+                    tooltip: {
+                        trigger: 'item'
+                    },
+                    legend: {
+                        orient: 'vertical',
+                        left: 'left'
+                    },
+                    series: [
+                        {
+                            name: 'Access From',
+                            type: 'pie',
+                            radius: '50%',
+                            data: salaries.map((salary, index) => ({
+                                value: salary,
+                                name: employeeNames[index]
+                            })),
+                            emphasis: {
+                                itemStyle: {
+                                    shadowBlur: 10,
+                                    shadowOffsetX: 0,
+                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                }
+                            }
+                        }
+                    ]
+                };
+
+                // Display the chart using the configuration items and data just specified.
+                myChart1.setOption(option1);
+
+            // Initialize the echarts instance based on the prepared dom
+            var myChart = echarts.init(document.getElementById('main'));
+
+            // Specify the configuration items and data for the chart
+            var option = {
+                title: {
+                    text: 'Employee WH'
+                },
+                tooltip: {},
+                legend: {
+                    data: ['WH']
+                },
+                xAxis: {
+                        data: employeeNames
+                },
+                yAxis: {},
+                series: [
+                    {
+                        name: 'WH',
+                        type: 'bar',
+                        data: workingHours
+                    }
+                ]
+            };
+
+            // Display the chart using the configuration items and data just specified.
+            myChart.setOption(option);
+        </script>
+    }
+
+
+    }
+    else
+    {
+        <p>No employee data available.</p>
+    }
+</div>
